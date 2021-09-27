@@ -28,52 +28,87 @@ public class Exam02 {
 		 */
 
 		System.out.println("2번--------");
-		int temp;
-		int temp2;
-		int[] arr2 = new int[45]; // 정수 n개를 담는 배열
-		int[] count = new int[45]; // 정수 n의 반복된 값을 추가할 배열
-		for (int i = 0; i < count.length; i++) { // 배열 초기화
-			arr2[i] = i + 1;// arr2[i]에 1~45 정수 초기화
-			count[i] = 0; // count[i]에 0 초기화
+//		int temp;
+//		int temp2;
+//		int[] arr2 = new int[45]; // 정수 n개를 담는 배열
+//		int[] lottoCount = new int[45]; // 정수 n의 반복된 값을 추가할 배열
+//		for (int i = 0; i < lottoCount.length; i++) { // 배열 초기화
+//			arr2[i] = i + 1;// arr2[i]에 1~45 정수 초기화
+//			lottoCount[i] = 0; // count[i]에 0 초기화
+//		}
+//		for (int i = 0; i < 1000; i++) { // 랜덤값 1000개 뽑고 count[]에 추가
+//			int arrCnt = r.nextInt(45) + 1;
+//			lottoCount[arrCnt - 1]++;
+//		}
+//
+//		for (int i = 0; i < arr2.length; i++) {
+//			for (int j = i + 1; j < arr2.length; j++) { // 정렬
+//				if (lottoCount[i] < lottoCount[j]) {
+//					temp = arr2[i];
+//					arr2[i] = arr2[j];
+//					arr2[j] = temp;
+//					temp2 = lottoCount[i];
+//					lottoCount[i] = lottoCount[j];
+//					lottoCount[j] = temp2;
+//				}
+//			}
+//		}
+//		for (int i = 0; i < 6; i++) {
+//			System.out.println((i + 1) + "번째 : " + arr2[i] + " ");
+//		}
+		int[] lottoCount = new int[46];
+		int maxNumberIndex = 0;
+		// 랜덤 수에 해당하는 인덱스의 값을 하나씩 증가시킴
+		for (int i = 0; i < 1000; i++) {
+			lottoCount[r.nextInt(45) + 1]++;
 		}
-		for (int i = 0; i < 1000; i++) { // 랜덤값 1000개 뽑고 count[]에 추가
-			int arrCnt = r.nextInt(45) + 1;
-			count[arrCnt - 1]++;
-		}
-
-		for (int i = 0; i < arr2.length; i++) {
-			for (int j = i + 1; j < arr2.length; j++) { // 정렬
-				if (count[i] < count[j]) {
-					temp = arr2[i];
-					arr2[i] = arr2[j];
-					arr2[j] = temp;
-					temp2 = count[i];
-					count[i] = count[j];
-					count[j] = temp2;
+		// 위에서 누적된 카운팅 확인
+//		for (int i = 0; i < 46; i++) {
+//			System.out.println("index : " + i + " value : " + lottoCount[i]);
+//		}
+		// 배열에서 가장 큰 값 찾아내기
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 46; j++) {
+				if (lottoCount[j] > lottoCount[maxNumberIndex]) {
+					maxNumberIndex = j;
 				}
 			}
-		}
-		for (int i = 0; i < 6; i++) {
-			System.out.println((i + 1) + "번째 : " + arr2[i] + " ");
+			System.out.println("로또 번호는 : " + maxNumberIndex);
+			lottoCount[maxNumberIndex] = -1;
 		}
 		/*
 		 * 3. int[] lotto = new int[46]; 위 배열을 활용하여 중복되지 않은 로또 번호를 출력하시오. (총, 6개) ​
 		 */
 		System.out.println("3번--------");
-		int[] lotto = new int[46]; // 를 사용하여 로또 번호 중복없이 6개 출력
-		for (int i = 0; i < lotto.length; i++) { // 0 ~ 45숫자 만들기
-			lotto[i] = i;
-		}
-		
-		int[] lottoNumber = new int[6];
-		for (int i = 0; i < lottoNumber.length; i++) {
-			lottoNumber[i] = lotto[r.nextInt(46)];
-			for (int j = 0; j < i; j++) {
-				if (lottoNumber[i] == lottoNumber[j] || lottoNumber[i] == 0) {
-					i--;
-				}
+//		int[] lotto = new int[46]; // 를 사용하여 로또 번호 중복없이 6개 출력
+//		for (int i = 0; i < lotto.length; i++) { // 0 ~ 45숫자 만들기
+//			lotto[i] = i;
+//		}
+//
+//		int[] lottoNumber = new int[6];
+//		for (int i = 0; i < lottoNumber.length; i++) {
+//			lottoNumber[i] = lotto[r.nextInt(46)];
+//			for (int j = 0; j < i; j++) {
+//				if (lottoNumber[i] == lottoNumber[j] || lottoNumber[i] == 0) {
+//					i--;
+//				}
+//			}
+//			System.out.print(lottoNumber[i] + "\t");
+//		}
+//		System.out.println("");
+		int[] lotto = new int[46];
+		for (int i = 0; i < 6; i++) {
+			int k = r.nextInt(45) + 1;
+			if (lotto[k] == 1) {
+				i--;
+			} else {
+				lotto[k] = 1;
 			}
-			System.out.print(lottoNumber[i] + "\t");
+		}
+		for (int i = 0; i < lotto.length; i++) {
+			if (lotto[i] == 1) {
+				System.out.print(i + "\t");
+			}
 		}
 		System.out.println("");
 		/*
