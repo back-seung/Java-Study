@@ -11,7 +11,7 @@ public class ExamForIf {
 			System.out.println("arr[" + i + "] 의 값 : " + arr[i]);
 		}
 		System.out.println("");
-
+// 발표해야 될 거 : 2번
 		System.out.println("===================2번===================");
 		// 2. a 배열의 값 중에서 짝수의 갯수는 모두 몇개인가요?
 		int[] a = { 3, 4, 5, 6, 8, 9, 10 };

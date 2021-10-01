@@ -85,55 +85,61 @@ public class Array2D {
 			}
 			System.out.println("");
 		}
-
-//		nowInt = 10;
-//		int cnt = 0;
-//		System.out.println("==================4번==================");
-//		for (int i = 0; i < 4; i++) {
-//			for (int j = 0; j < 5; j++) {
-//				if (i + j == cnt) {
-//					b[i][j] = nowInt;
-//					nowInt++;
-//					cnt++;
-//				}
-//			}
-//		}
-//		for (int i = 0; i < 4; i++) {
-//			for (int j = 0; j < 5; j++) {
-//				System.out.print(b[i][j] + "\t");
-//			}
-//			System.out.println("");
-
 		nowInt = 10;
 		System.out.println("==================4번==================");
+		int rowMin = 0; // 행의 최소값
+		int rowMax = 4; // 행의 최대값
+		int colMin = 0; // 열의 최소값
+		int colMax = 5; // 열의 최대값
 
-		for (int j = 0; j < 5; j++) {
-			b[0][j] = nowInt;
-			nowInt++;
+		for (int j = 0; j < 2; j++) { // 반복문 #1~4 를 총 2번 반복.
+			for (int i = colMin; i < colMax; i++) { // #1 열의 변경
+
+				b[rowMin][i] = nowInt;
+				nowInt++;
+			}
+			rowMin++;
+			// [0,0] ~ [0,5] 까지 수행
+			// 현재 값 : 1 (rowMIn) / 4(rowMax) : 0(colMin) / 5(colMax)
+			for (int i = rowMin; i < rowMax; i++) { // #2 행의 변경
+				b[i][colMax - 1] = nowInt;
+				nowInt++;
+			}
+			colMax--;
+			// 현재 값 : 1 (rowMIn) / 4(rowMax) : 0(colMin) / 4(colMax)
+			for (int i = colMax - 1; i >= colMin; i--) { // #3 열의 변경
+				b[rowMax - 1][i] = nowInt;
+				nowInt++;
+			}
+			rowMax--;
+			// 현재 값 : 1 (rowMIn) / 3(rowMax) : 0(colMin) / 4(colMax)
+			for (int i = rowMax - 1; i >= rowMin; i--) { // #4 행의 변경
+				b[i][colMin] = nowInt;
+				nowInt++;
+			}
+			colMin++;
+			// 현재 값 : 1 (rowMIn) / 3(rowMax) : 1(colMin) / 4(colMax)
 		}
-		for (int i = 1; i < 4; i++) {
-			b[i][4] = nowInt;
-			nowInt++;
+		// 출력
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 5; j++) {
+				System.out.print(b[i][j] + "\t");
+			}
+			System.out.println("");
 		}
-		for (int j = 3; j >= 0; j--) {
-			b[3][j] = nowInt;
-			nowInt++;
-		}
-		for (int i = 2; i > 0; i--) {
-			b[i][0] = nowInt;
-			nowInt++;
-		}
-		for (int j = 1; j < 3; j++) {
-			b[1][j] = nowInt;
-			nowInt++;
-		}
-		for (int i = 1; i < 3; i++) {
-			b[i][3] = nowInt;
-			nowInt++;
-		}
-		for (int j = 2; j > 0; j--) {
-			b[2][j] = nowInt;
-			nowInt++;
+		nowInt = 10;
+		int range = 0;
+		System.out.println("==================5번==================");
+		for (int i = 0; i < 8; i++) {
+			for (int j = i; j >= 0; j--) {
+				range = i - j;
+				if (range > 3 || j > 4) {
+
+				} else {
+					b[range][j] = nowInt;
+					nowInt++;
+				}
+			}
 		}
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 5; j++) {
