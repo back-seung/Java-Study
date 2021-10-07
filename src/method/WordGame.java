@@ -7,24 +7,30 @@ public class WordGame {
 
 	// ## 단어게임 정리
 	// # 1. 하
-	// 1-1. 랜덤하게 단어가 출력되게 한다 													✅
-	// 1-2. 랜덤한 단어를 키보드로 입력하고 채점을 한다. 										✅
+	// 1-1. 랜덤하게 단어가 출력되게 한다 ✅
+	// 1-2. 랜덤한 단어를 키보드로 입력하고 채점을 한다. ✅
 	// # 2. 중
-	// 2-1. 부분 점수를 채점한다.(ex : 제시어가 apple인 경우 app으로 input 했다면 부분점수 적용) 	✅
+	// 2-1. 부분 점수를 채점한다.(ex : 제시어가 apple인 경우 app으로 input 했다면 부분점수 적용) ✅
 	// # 3. 상
-	// 3-1. 단어관리 ( 단어 입력 가능) 													✅
-	// 3-2. 단어별 점수 따로 관리( apple은 10점, banana는 15점 등 단어별로 점수를 다르게 게산) 	✅
-	// 3-3. 중복된 단어는 입력이 안되게 한다. 												✅
+	// 3-1. 단어관리 ( 단어 입력 가능) ✅
+	// 3-2. 단어별 점수 따로 관리( apple은 10점, banana는 15점 등 단어별로 점수를 다르게 게산) ✅
+	// 3-3. 중복된 단어는 입력이 안되게 한다. ✅
 	// # 4. 최상
-	// 4-1. 게임 시작시 사용자명을 입력하고 랭킹을 관리한다. 									❌
+	// 4-1. 게임 시작시 사용자명을 입력하고 랭킹을 관리한다. ❌
+	
+	// for(;;){} ==> while(true) 로 변경 
+	// 
+	//
+	
 
 	// static String[] randomWord = { "apple", "banana", "cherry", "orange",
 	// "peach", "watermelon", "strawberry", "pear" }; 3-1 구현 후 사용 안함.
-	
-	/* 현재 까지의 bug ? 
-	 *
 
-	 * 1. 
+	/*
+	 * 현재 까지의 bug ?
+	 *
+	 * 
+	 * 1.
 	 * 
 	 * 2.
 	 * 
@@ -34,7 +40,7 @@ public class WordGame {
 	 * 
 	 * 5.
 	 * 
-	 * */
+	 */
 	static Scanner sc = new Scanner(System.in);
 	static Random r = new Random();
 
@@ -42,7 +48,6 @@ public class WordGame {
 	static String[] user = new String[5]; // 사용자 저장
 	static String inputWord = ""; // 입력할 단어
 	static String outputWord = ""; // 맞춰야 할 단어
-
 	static int[] userScore = new int[5]; // 사용자 score 저장
 	static int[] Ranking = { 1, 2, 3, 4, 5 };
 	static int playTime = randomMode.length; // 게임을 진행할 횟수
@@ -83,7 +88,7 @@ public class WordGame {
 					continue;
 				}
 			}
-			if (over == 10) {
+			if (over > 9) {
 				for (int i = 0; i < userScore.length; i++) {
 					userScore[i] += score; // createUser의 기능의 일부분
 					System.out.println("게임이 끝났습니다. 감사합니다.\n최종 스코어 : " + userScore[i]);
@@ -105,6 +110,7 @@ public class WordGame {
 		if (cnt > 0) { // 카운팅이 0 이상일 때
 			System.out.println("부분점수 : " + cnt);
 		}
+		over++;
 		score += cnt;
 		cnt = 0;
 		return score;
@@ -123,8 +129,10 @@ public class WordGame {
 	// 3-2. 단어별 점수 따로 관리( apple은 10점, banana는 15점 등 단어별로 점수를 다르게 게산)
 	public static int checkLength(String inputWord) {
 		if (inputWord.length() > standardLength) {
+			over++;
 			score += inputWord.length();
 		} else {
+			over++;
 			score += defaultPoint;
 		}
 		return score;
@@ -135,7 +143,6 @@ public class WordGame {
 		for (int i = 0; i < randomMode.length; i++) {
 			if (randomMode[i].equals(inputWord)) {
 				randomMode[i] = "";
-				over++; // 정답일 때 over++
 			}
 		}
 	}
