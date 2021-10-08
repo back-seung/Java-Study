@@ -17,11 +17,10 @@ public class WordGame {
 	// 3-3. 중복된 단어는 입력이 안되게 한다. ✅
 	// # 4. 최상
 	// 4-1. 게임 시작시 사용자명을 입력하고 랭킹을 관리한다. ❌
-	
-	// for(;;){} ==> while(true) 로 변경 
-	// 
+
+	// for(;;){} ==> while(true) 로 변경
 	//
-	
+	//
 
 	// static String[] randomWord = { "apple", "banana", "cherry", "orange",
 	// "peach", "watermelon", "strawberry", "pear" }; 3-1 구현 후 사용 안함.
