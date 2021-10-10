@@ -11,31 +11,36 @@ public class ExamMethod2 {
 	static String[] korWord = new String[5];
 	static String inputEngWord = null;
 	static String inputKorWord = null;
-	static String pattern = "^[a-zA-Z]*$";
-	static String[] badWord = { "fuck", "shit", "bitch", "motherfucker" };
+	static String pattern = "^\\w{2,}$";
+	static String[] badWord = { "fuck", "shit", "bitch", "motherfucker", "sex" };
 	static int cnt = 0;
 
 	// 나. 단어 입력기능
 	public static void submitWord() {
 		System.out.println("저장할 영단어를 입력해주세요 : ");
 		inputEngWord = sc.nextLine();
-		// 욕설
+		inputEngWord = checkBadWord(inputEngWord);
 		System.out.println("저장할 영단어를 한글뜻으로 입력해주세요 : ");
 		inputKorWord = sc.nextLine();
 		for (int i = 0; i < engWord.length; i++) {
-			if (engWord[i] == null && inputEngWord.matches(pattern) && inputEngWord.length() >= 2) {
-				engWord[i] = inputEngWord;
-				korWord[i] = inputKorWord;
-				cnt++;
-				System.out.println(i + " 자리에 [" + engWord[i] + " : " + korWord[i] + "] 가 저장되었습니다.");
+			// 마. 중복된 단어 방지
+			if (!(inputEngWord.equals(engWord[i]))) {
+				if (engWord[i] == null && inputEngWord.matches(pattern)) {
+					engWord[i] = inputEngWord;
+					korWord[i] = inputKorWord;
+					System.out.println(i + " 자리에 [" + engWord[i] + " : " + korWord[i] + "] 가 저장되었습니다.");
+					cnt++;
+					break;
+				}
+			} else {
+				System.out.println("중복");
 				break;
 			}
-			if (cnt > 4) {
-				System.out.println("자리가 없습니다");
-				System.out.println("");
-				menu();
-				break;
-			}
+		}
+		if (cnt > 4) {
+			System.out.println("자리가 없습니다");
+			System.out.println("");
+			menu();
 		}
 	}
 
@@ -60,32 +65,22 @@ public class ExamMethod2 {
 		System.out.println("찾고 있는 단어를 입력해주세요 : ");
 		inputEngWord = sc.nextLine();
 		for (int i = 0; i < engWord.length; i++) {
-			if (inputEngWord.equals(engWord[i]) || inputEngWord.equals(korWord[i])) {
+			if (engWord[i].contains(inputEngWord)) {
 				System.out.println("[" + engWord[i] + " : " + korWord[i] + "]");
 			}
 		}
 	}
 
-	// 마. 중복된 단어 방지
-	public static void isDuplicate() {
-
-	}
-
-	// 검색할 때 입력된 단어로 시작하는 모든 단어 출력하기
-	public static void searchDeep() {
-
-	}
-
 	// 욕 금지
-	public static boolean checkBadWord(String inputEngWord) {
+	public static String checkBadWord(String inputEngWord) {
 		for (int i = 0; i < badWord.length; i++) {
-			if (inputEngWord.equals(badWord[i])) {
-				System.out.println("욕설 금지");
-				inputEngWord = null;
+			if (inputEngWord.contains(badWord[i])) {
+				System.out.println("욕설 금지, 다시 입력해주세요");
+				inputEngWord = sc.nextLine();
 				break;
 			}
 		}
-		return false;
+		return inputEngWord;
 	}
 
 	public static void viewWords() {
@@ -96,6 +91,7 @@ public class ExamMethod2 {
 		for (int i = 0; i < engWord.length; i++) {
 			System.out.print(korWord[i] + "\t");
 		}
+		System.out.println("");
 	}
 
 	public static void menu() {
