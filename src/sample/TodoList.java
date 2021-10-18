@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class TodoList {
 	static Scanner sc = new Scanner(System.in);
+	static String pattern = "^\\d{4}-\\d{2}-\\d{2}$";
 	String date = null;
 	String Todo = null;
 	String Todo2 = null;
@@ -17,15 +18,28 @@ public class TodoList {
 
 	// 객체 배열 초기화
 	public static void createTodo(TodoList[] Weeks) {
+		int cnt = 0; // 초기화된 배열의 갯수를 체크
 		System.out.println("작성");
 		for (int i = 0; i < Weeks.length; i++) {
-			if (Weeks[i] == null) {
+			if (Weeks[i] == null) { // 값이 비었는가
+				System.out.println("날짜를 입력해주세요");
 				String date = sc.nextLine();
+				if (!(date.matches(pattern))) { // 정규표현식에 맞지 않는가
+					System.out.println("형식에 맞게 입력해주세요. 예) 1998-01-01");
+					date = sc.nextLine();
+				}
+				System.out.println("할 일을 입력해주세요");
 				String Todo = sc.nextLine();
+				System.out.println("또 다른 할 일을 입력해주세요");
 				String Todo2 = sc.nextLine();
 				Weeks[i] = new TodoList(date, Todo, Todo2);
+				cnt++;
 				System.out.println(i + "번 째 생성 완료");
 				break;
+			} else { // 값이 비어있지 않은가
+				if (cnt == (Weeks.length - 1)) { // 베열에 자리가 남아있는가
+					System.out.println("빈 자리가 없습니다.");
+				}
 			}
 		}
 	}
@@ -53,6 +67,9 @@ public class TodoList {
 					Weeks[i] = null;
 					System.out.println(i + "번 째 삭제 완료");
 					break;
+				} else {
+					System.out.println("찾는 값이 존재하지 않습니다.");
+					break;
 				}
 			}
 		}
@@ -72,9 +89,12 @@ public class TodoList {
 				} else if (search.equals(Weeks[i].Todo2)) {
 					System.out.println(search + "검색 완료");
 					System.out.println("날짜 : " + Weeks[i].date);
-					System.out.println("할 일 : " + Weeks[i].Todo2);
+					System.out.println("할 일 2 : " + Weeks[i].Todo2);
 					break;
 				}
+			} else {
+				System.out.println("값이 존재하지 않습니다.");
+				break;
 			}
 		}
 	}
@@ -98,6 +118,9 @@ public class TodoList {
 					print(Weeks);
 					break;
 				}
+			} else {
+				System.out.println("값이 존재하지 않습니다.");
+				break;
 			}
 		}
 	}
